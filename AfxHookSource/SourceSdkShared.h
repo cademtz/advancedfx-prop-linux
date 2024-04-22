@@ -46,6 +46,12 @@ typedef unsigned char byte;
 
 typedef int	string_t;
 
+#ifdef _WIN32
+typedef wchar_t ucs2; // under windows wchar_t is ucs2
+#else
+typedef unsigned short ucs2;
+#endif
+
 inline vec_t BitsToFloat(uint32 i)
 {
 	union Convertor_t

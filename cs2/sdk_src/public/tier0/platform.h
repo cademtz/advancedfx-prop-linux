@@ -75,6 +75,8 @@ inline void Destruct( T* pMemory )
 #endif
 }
 
+#define SOURCESDK_CS2_FMTFUNCTION( a, b )
+
 } // namespace SOURCESDK {
 } // namespace CS2 {
 

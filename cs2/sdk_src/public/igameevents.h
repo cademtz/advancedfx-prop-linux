@@ -133,7 +133,7 @@ public:
 	// Something script vm related
 	virtual void unk001() = 0;
 	
-	virtual KeyValues *GetDataKeys() const = 0;
+	virtual struct KeyValues3 * GetDataKeys() const = 0;
 };
 
 class CGameEventDescriptor
