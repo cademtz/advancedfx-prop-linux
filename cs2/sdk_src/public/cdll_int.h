@@ -32,12 +32,10 @@ public:
     virtual void _Unknown_009(void) = 0;
     virtual void _Unknown_010(void) = 0;
     virtual void _Unknown_011(void) = 0;
-    virtual void _Unknown_012(void) = 0;
-    virtual void _Unknown_013(void) = 0;
+    virtual bool IsPlayingDemo(void) = 0; //:012
+    virtual bool IsDemoPaused(void) = 0; //:013
     virtual void _Unknown_014(void) = 0;
     virtual void _Unknown_015(void) = 0;
-
-    virtual float GetDemoTimeScale(void) = 0; //:003
 };
 
 // change this when the new version is incompatable with the old
