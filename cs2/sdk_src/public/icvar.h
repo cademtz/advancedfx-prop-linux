@@ -96,7 +96,7 @@ struct Cvar_s {
 // size: 8*8 Bytes
 class CCmd {
 public:
-	CCmd(const char * pszName, const char * pszHelpString, int nFlags, ICommandCallback * pCommandCallback) {
+	CCmd(const char * pszName, const char * pszHelpString, int64 nFlags, ICommandCallback * pCommandCallback) {
 		m_pszName = pszName;
 		m_pszHelpString = pszHelpString;
 		m_nFlags = nFlags;
@@ -111,11 +111,11 @@ public:
 		return m_pszHelpString;
 	}
 
-	int GetFlags() const {
+	int64 GetFlags() const {
 		return m_nFlags;
 	}
 
-	void SetFlags(int value) {
+	void SetFlags(int64 value) {
 		m_nFlags = value;
 	}
 
@@ -126,8 +126,7 @@ public:
 private:
 	const char 					*m_pszName;
 	const char 					*m_pszHelpString;
-	int							m_nFlags;
-	int _unknown_20 = 0;
+	int64							m_nFlags;
 	void * m_pCommandCallback;
 	size_t _unknown_32 = 0x0101; // this indicates that we are using the interface version and not a flat callback I guess.
 	size_t _unknown_40 = 0;
@@ -175,7 +174,7 @@ public:
 
 	virtual Cvar_s * GetCvar( size_t i ); //:037
 
-	virtual CvarIterator RegisterConCommand( CCmd * pCmd  ) = 0; //:038
+	virtual CvarIterator RegisterConCommand( CCmd * pCmd, int64 nAdditionalFlags = 0 ) = 0; //:038
 	virtual void _Unknown_039(void) = 0;
 
 	virtual CCmd * GetCmd( size_t i ); //:040;
