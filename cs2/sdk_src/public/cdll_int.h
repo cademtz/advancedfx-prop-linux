@@ -114,25 +114,10 @@ public:
 
     virtual void _Unknown_058(void) = 0;
     virtual void _Unknown_059(void) = 0;
+    virtual void _Unknown_060(void) = 0;
 
-    virtual IDemoFile* GetDemoFile(void) = 0; //:060
+    virtual IDemoFile* GetDemoFile(void) = 0; //:061
 
-    virtual void _Unknown_061(void) = 0; // Demo related
-    virtual void _Unknown_062(void) = 0; // Demo related
-
-    virtual void _Unknown_063(void) = 0; // Demo recording related
-    virtual void _Unknown_064(void) = 0; // Demo related
-    virtual void _Unknown_065(void) = 0; // Demo related
-    virtual void _Unknown_066(void) = 0; // Demo related
-    virtual void _Unknown_067(void) = 0; // Demo related
-    virtual void _Unknown_068(void) = 0; // Demo related
-    virtual void _Unknown_069(void) = 0; // Demo related
-    virtual void _Unknown_070(void) = 0; // Demo related
-    virtual void _Unknown_071(void) = 0; // Demo related
-    virtual void _Unknown_072(void) = 0; // Demo related
-    virtual void _Unknown_073(void) = 0; // Demo related
-    virtual void _Unknown_074(void) = 0; // Demo related
-    virtual void _Unknown_075(void) = 0; // Demo related
 };
 
 enum ClientFrameStage_t
