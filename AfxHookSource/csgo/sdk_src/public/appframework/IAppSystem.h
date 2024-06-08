@@ -109,7 +109,8 @@ public:
 
 	virtual void Reconnect( CreateInterfaceFn factory, const char *pInterfaceName )
 	{
-		ReconnectInterface( factory, pInterfaceName );
+		// NOTE(Cade): This is never declared, and it likely will not be linked.
+		//ReconnectInterface( factory, pInterfaceName );
 	}
 };
 
