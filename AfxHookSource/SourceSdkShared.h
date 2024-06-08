@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 
 // Based on Source engine SDK(s):
 // Copyright (c) 1996-2005, Valve Corporation, All rights reserved
@@ -9,9 +10,22 @@ namespace SOURCESDK {
 #define SOURCESDK_NULL 0
 #endif
 
-#define SOURCESDK_abstract_class class __declspec(novtable)
+#define abstract
 
-#define SOURCESDK_FORCEINLINE __forceinline
+#if defined(MSC_VER)
+	#define SOURCESDK_abstract_class class __declspec(novtable)
+#else
+	#define SOURCESDK_abstract_class class
+#endif
+
+#if defined(MSC_VER)
+	#define SOURCESDK_FORCEINLINE __forceinline
+#elif defined(__GNUC__)
+	#define SOURCESDK_FORCEINLINE __attribute__((always_inline))
+#else
+	#define SOURCESDK_FORCEINLINE inline
+#endif
+
 #define SOURCESDK_FORCEINLINE_CVAR SOURCESDK_FORCEINLINE
 
 #define SOURCESDK_Assert(condition)
@@ -24,18 +38,26 @@ namespace SOURCESDK {
 #define SOURCESDK_DECLARE_POINTER_HANDLE(name) struct name##__ { int unused; }; typedef struct name##__ *name
 #define SOURCESDK_FORWARD_DECLARE_HANDLE(name) typedef struct name##__ *name
 
-#define SOURCESDK_ALIGN16 __declspec( align( 16 ) )
-#define SOURCESDK_ALIGN16_POST
+#if defined(MSC_VER)
+	#define SOURCESDK_ALIGN16 __declspec( align( 16 ) )
+	#define SOURCESDK_ALIGN16_POST
+#elif defined(__GNUC__)
+	#define SOURCESDK_ALIGN16
+	#define SOURCESDK_ALIGN16_POST __attribute__((aligned(16)))
+#else
+	#define SOURCESDK_ALIGN16
+	#define SOURCESDK_ALIGN16_POST
+#endif
 
 typedef float vec_t;
-typedef signed char int8;
-typedef signed __int16 int16;
-typedef signed __int32 int32;
-typedef signed __int64 int64;
-typedef unsigned char uint8;
-typedef unsigned __int32 uint32;
-typedef unsigned __int16 uint16;
-typedef unsigned __int64 uint64;
+typedef int8_t int8;
+typedef int16_t int16;
+typedef int32_t int32;
+typedef int64_t int64;
+typedef uint8_t uint8;
+typedef uint32_t uint32;
+typedef uint16_t uint16;
+typedef uint64_t uint64;
 
 // for when we don't care about how many bits we use
 typedef unsigned int	uint;

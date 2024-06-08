@@ -6,7 +6,7 @@
 // Description:
 // Interface definitions for accessing the Source engine.
 
-#include "../../../../shared/AfxConsole.h"
+#include "afx/shared/AfxConsole.h"
 #include "SourceSdkShared.h"
 
 #include "csgo/sdk_src/public/appframework/IAppSystem.h"
@@ -38,7 +38,7 @@ namespace SOURCESDK {
 #define NULL 0
 #endif
 
-#define FORCEINLINE __forceinline
+#define FORCEINLINE SOURCESDK_FORCEINLINE
 #define FORCEINLINE_CVAR FORCEINLINE
 
 #define Assert(condition)
@@ -1000,7 +1000,6 @@ public:
 #define SOURCESDK_CSGO_MAX_CUSTOM_FILES	4
 
 typedef unsigned long CRC32_t;
-typedef unsigned __int64 uint64;
 
 typedef struct player_info_s_csgo
 {
@@ -1763,10 +1762,6 @@ public:
 
 // IMesh_csgo //////////////////////////////////////////////////////////////////
 
-typedef unsigned __int8 uint8;
-typedef unsigned __int32 uint32;
-typedef unsigned __int64 uint64;
-
 typedef uint64 VertexFormat_t_csgo;
 
 typedef void MeshBoneRemap_t_csgo;
@@ -2270,7 +2265,7 @@ public:
 	
 	// 013:
 	// read to a unsigned char rgb image. 
-	virtual void ReadPixels( int x, int y, int width, int height, unsigned char *data, ImageFormat_csgo dstFormat, unsigned __int32 _unknown7 = 0) = 0; 
+	virtual void ReadPixels( int x, int y, int width, int height, unsigned char *data, ImageFormat_csgo dstFormat, uint32_t _unknown7 = 0) = 0; 
 
 	virtual void _UNKNOWN_014(void) = 0;
 	virtual void _UNKNOWN_015(void) = 0;
@@ -3884,13 +3879,13 @@ class IBaseShader_csgo abstract
 								VertexCompressionType_t_csgo vertexCompression, CBasePerMaterialContextData_csgo **pContext, CBasePerInstanceContextData_csgo** pInstanceDataPtr ) = 0;
 
 	virtual void _Unknown_007_SomewhatDrawElements(
-		unsigned __int32 * unkDataPtr1,
-		unsigned __int32 * unkDataPtr2,
+		uint32_t * unkDataPtr1,
+		uint32_t * unkDataPtr2,
 		void * unkClass1, // related to VertexBuffer
 		IShaderDynamicAPI_csgo* pShaderAPI,
-		unsigned __int32 unkData2,
+		uint32_t unkData2,
 		CBasePerMaterialContextData_csgo **pContext,
-		unsigned __int32 unkData3
+		uint32_t unkData3
 		) = 0;
 
 	virtual int ComputeModulationFlags( IMaterialVar_csgo** params, IShaderDynamicAPI_csgo* pShaderAPI ) = 0;
@@ -6005,7 +6000,7 @@ enum TraceType_t
 	TRACE_EVERYTHING_FILTER_PROPS,	// NOTE: This version will pass the IHandleEntity for props through the filter, unlike all other filters
 };
 
-class __declspec(novtable) ITraceFilter abstract
+SOURCESDK_abstract_class ITraceFilter abstract
 {
 public:
 	virtual bool ShouldHitEntity(IHandleEntity *pEntity, int contentsMask) = 0;
@@ -6075,7 +6070,8 @@ public:
 	}
 };
 
-class __declspec(align(16)) VectorAligned : public Vector
+// NOTE(Cade): No manual alignment is needed. This uses all 16 bytes.
+class VectorAligned : public Vector
 {
 public:
 	float w;	// this space is used anyway
@@ -6359,7 +6355,7 @@ typedef CGameTrace trace_t;
 
 #define SOURCESDK_CSGO_INTERFACEVERSION_ENGINETRACE_CLIENT	"EngineTraceClient004"
 
-class __declspec(novtable) IEngineTrace abstract
+SOURCESDK_abstract_class IEngineTrace abstract
 {
 public:
 	virtual void _UNUSED_GetPointContents(void) = 0;
@@ -6403,7 +6399,7 @@ public:
 
 typedef void * CGameUIFuncs_SomeShit_t;
 
-class __declspec(novtable) CGameUIFuncs abstract {
+SOURCESDK_abstract_class CGameUIFuncs abstract {
 public:
 	virtual void _Unknown_000(void) = 0;
 	virtual void _Unknown_001(void) = 0;
@@ -6422,7 +6418,7 @@ public:
 
 namespace panorama {
 
-class __declspec(novtable) CTopLevelWindowSource2 abstract {
+SOURCESDK_abstract_class CTopLevelWindowSource2 abstract {
 public:
 	virtual void RunFrame(void * hWnd, int flags) = 0;
 	virtual void _Unknown_001(void) = 0;
@@ -6514,7 +6510,7 @@ public:
 
 };
 
-class __declspec(novtable) CUIEngineSource2 abstract {
+SOURCESDK_abstract_class CUIEngineSource2 abstract {
 public:
 	virtual void _Unknown_000(void) = 0;
 	virtual void _Unknown_001(void) = 0;
@@ -6534,7 +6530,7 @@ public:
 
 };
 
-class __declspec(novtable) CPanoramaUIEngine abstract  {
+SOURCESDK_abstract_class CPanoramaUIEngine abstract  {
 public:
 	virtual void _Unknown_000(void) = 0;
 	virtual void _Unknown_001(void) = 0;
@@ -6551,7 +6547,7 @@ public:
 	virtual CUIEngineSource2 * GetUIEngineSoruce2(void) = 0;
 };
 
-class __declspec(novtable) CDebugger abstract {
+SOURCESDK_abstract_class CDebugger abstract {
 public:
 
 };
@@ -6560,7 +6556,7 @@ public:
 
 #define SOURCESDK_CSGO_PANORAMAUICLIENT_VERSION "PanoramaUIClient001"
 
-class __declspec(novtable) CPanoramaUIClient abstract {
+SOURCESDK_abstract_class CPanoramaUIClient abstract {
 public:
 	virtual void _Unknown_000(void) = 0;
 	virtual void _Unknown_001(void) = 0;
@@ -6584,7 +6580,7 @@ public:
 class IServerEntity;
 class CEntityRespawnInfo;
 
-class __declspec(novtable) IServerTools abstract : public IBaseInterface
+SOURCESDK_abstract_class IServerTools abstract : public IBaseInterface
 {
 public:
 	virtual IServerEntity *GetIServerEntity(IClientEntity_csgo *pClientEntity) = 0;
@@ -6745,7 +6741,7 @@ struct DrawModelInfo_t
 //-----------------------------------------------------------------------------
 // Studio render interface
 //-----------------------------------------------------------------------------
-class __declspec(novtable) IStudioRender abstract : public IAppSystem
+SOURCESDK_abstract_class IStudioRender abstract : public IAppSystem
 {
 public:
 	virtual void BeginFrame(void) = 0;
