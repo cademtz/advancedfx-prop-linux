@@ -21,7 +21,7 @@ namespace SOURCESDK {
 #if defined(MSC_VER)
 	#define SOURCESDK_FORCEINLINE __forceinline
 #elif defined(__GNUC__)
-	#define SOURCESDK_FORCEINLINE __attribute__((always_inline))
+	#define SOURCESDK_FORCEINLINE __attribute__((always_inline)) inline
 #else
 	#define SOURCESDK_FORCEINLINE inline
 #endif
