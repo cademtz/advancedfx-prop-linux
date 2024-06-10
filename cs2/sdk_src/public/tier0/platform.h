@@ -16,8 +16,14 @@
 namespace SOURCESDK {
 namespace CS2 {
 
-//TODO: ...
-#define SOURCESDK_CS2_COMPILER_MSVC
+#if defined(_MSC_VER)
+	#define SOURCESDK_CS2_COMPILER_MSVC
+#elif defined(__GNUC__)
+	// NOTE(Cade): Only a GNUC check is needed.
+	//             Other compilers can implement GNUC extensions.
+	#define SOURCESDK_CS2_GNUC
+	#define SOURCESDK_CS2_COMPILER_GCC
+#endif
 
 //-----------------------------------------------------------------------------
 // Various compiler-specific keywords
